@@ -20,16 +20,23 @@ ranges? If not, explain why. They are in the expected ranges. ✅
 4. Build an AI player that uses minimax to choose the best move with a variable
 number of plies and the utility function described above ✅
 5. Play 100 games with the random player against the minimax AI player at a
-depth of 2 and 5 plies
-What percentage of games does each player (AI or random) win?  
-On average, how many moves does it take to win?
+depth of 2 and 5 plies. What percentage of games does each player (AI or random) win?  On average, how many moves does it take to win?
+
 2 piles: AI wins 95%, random wins 4%, and tie happens 1%. When AI wins 29.02 total moves per game, 17.16 of them by AI. When Random wins 23.75 total moves per game, 8.50 of them by Random.
+
 5 piles: AI wins 100%, random wins 0%, and tie happens 0%. When AI wins 26.12 total moves per game, 16.39 of them by AI.
+
 Is your AI player better than random chance? Write a paragraph or two
-describing why or why not
+describing why or why not?
+
+Our AI player is better than random chance. This claim is supported by our AI’s 95% and 100% win probabilities. To achieve this win probability the AI first copies the board so it can test moves without affecting the actual game board. It then tries every legal move and looks ahead a set number of plies, assuming the opponent will always pick the move that is worst for the AI. At the end of the look-ahead, it scores each board using the utility function, which is the number of stones in the AI’s mancala minus the number of stones in the opponent’s mancala. The AI then picks the move that leads to the highest score. The random player does not do any of this. It picks any legal pit with no thought about captures, extra turns, or what the opponent might do next. Because of this, the random player often gives the AI chances to capture stones or set up extra turns, and the AI takes them. This is why the AI wins almost every game. 
+
 Does your AI player have a better win rate as the number of plies increases?
 Why or why not?
-7. Build an AI player that uses Alpha-Beta to choose the best move
+
+Yes, our AI player has a better win rate as the number of plies increases. At 2 plies the AI won 95% of games, and at 5 plies it won 100% of games. With 2 plies, the AI only looks at its own move and the opponent’s reply, so it can miss moves that look good now but cause problems a few turns later. With 5 plies, the AI can see further ahead, which lets it plan extra turns, set up captures, and avoid giving the random player easy captures. The games also ended faster at 5 plies (26.12 total moves compared to 29.02 at 2 plies), which shows the AI was winning more efficiently. Looking deeper also has a cost. The number of boards the AI has to check grows very quickly with each extra ply, so 5 plies takes much longer to run than 2 plies.
+
+7. Build an AI player that uses Alpha-Beta to choose the best move ✅
 8. Play 100 games with the random player against the Alpha-Beta AI player at a
 depth of 5 plies
 How long does it take for a single game to run to completion?
