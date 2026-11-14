@@ -44,6 +44,9 @@ What percentage of games does each player (AI or random) win?
 On average, how many moves does it take to win?
 Are your results for this part different from those for your minimax AI player?
 Write a paragraph or two describing why or why not
+
+After playing 100 games with the random player against the Alpha-Beta AI player at a depth of 5 piles, which took 13.0 seconds, we found that it took around 0.13 seconds per game on average, with a fastest time of 0.055s and a slowest time of 0.42s. The Alpha-Beta AI won 100% of the games and averaged 16.53 turns, compared to an average of 26.12 moves per game. The 5-ply Alpha-Beta results are identical to the 5-ply min-max results: both won 100% of the games, with an average of 26.12 moves per game and an average win at 16.53 AI moves. They did, however, differ in runtimes. The Alpha-Beta AI averaged 0.13s per game, while the minmax averaged 0.8s per game. These results are expected, as Alpha-Beta doesn’t differ in strategy, as it's just min-max with pruning. It computes the same values for each move; however, unlike Min-Max, it stops searching a branch once it can prove that the branch can’t change the final decision. Since both algorithms even use the same tie rule, they both pick the same pits at every turn. They both saw exactly the same random moves and played the exact same 100 games, so the only discrepancies between the two methods were the time it took to run. 
+
 9. Play 100 games with the random player against the Alpha-Beta AI player at a
 depth of 10 plies
 NOTE: It may take between 15 minutes and 2 hours or more to run 100
@@ -57,6 +60,12 @@ Plot a curve showing the win percentage for a player looking ahead 2 plies, 5
 plies and 10 plies
 As you increase the number of plies, does the AI player win more games?
 Explain why or why not.
+
+
+After playing 100 games with the random player against the Alpha-Beta AI player at a depth of 10 plies, which took around 34 minutes, we found an average of 20.5 seconds per game, with a fastest time of 9.6 and a slowest time of 42.3. Similar to the Alpha-Beat AI at 5-ply, the 10-ply yielded a 100% win rate, this time with an average of 14.04 moves in a 22.7-move game. We timed and measured the minmax at 3, 4, 5, and 6 plies across 20 games each. With each additional ply, it got around 4.6x slower on average. Going from 5 plies to 10 plies adds five plies, meaning its projected time is around 27 minutes slower per game. In comparison, the 10-ply Alpha-Beta took 20.4 seconds per game, which is a projected speed-up of around 79x. We found that as the number of plies increases, the win rate only increases slightly. This, however, is because the AI was already winning almost every game, so the win rate went from 99% at 2 plies to 100% at 5 plies. Since the other player moves randomly, they are easy to beat, and you don't need many layers to win. Interestingly, however, the speed at which the AI wins the game does increase. With each additional ply, the AI player becomes more efficient, with the average game length (100% of the games they won) dropping from 28.6 moves at 2 plies to 26.1 at 5 plies to 22.7 at 10 plies. Furthermore, the AI’s own moves dropped from 17.0 to 16.5 to 14.0, respectively.  The further ahead the AI could look, the more it could set up chains of extra turns and captures, collect stones faster, and end the game sooner. 
+
+
+
 10. Continuation rule check (20 points). Include a section in your notebook that
 shows your game and your AI players handle the continuation rule correctly:
 Rule tests (8 points): copy the HW 6 Part 3 test cell into your project
@@ -76,6 +85,12 @@ how you count depth. AIMA's unmodified alpha_beta_cutoff_search ,
 which always alternates MAX and MIN, undervalues the extra turn and picks
 pit 3, 1 and 3 instead. A wrong answer here usually means your search does
 not account for the continuation rule. In your writeup, explain what you changed in the search to handle it.
+
+
+We copied the HW 6 part 3 test cell into this notebook, and ran it against our final game code, with all 8 of 8 tests passing. In our 100 random-vs-random games, there were 6.11 extra turns per game on average, which is within the expected range of 4.5 to 6.5. In this, we did not count moves that ended the game, since we only count continuations when the last stone lands within the player’s mancala and the game is not over. For the AI test positions, both our minimax and Alpha-Beta players correctly chose pit 5 for position A, and pit 6 for positions B and C. To handle the continuation rule, searches don't assume that the players always alternate. Instead, at each node, it checks whose turn it actually is on the board, so a MAX node can have MAX children. This enables the AI to correctly value an extra turn as another move, whereas another search that always alternates would undervalue this and pick incorrect pits 
+
+
+
 11. (Extra Credit, 20 points, Option 2 only). Make your Alpha-Beta AI player fast: run
 100 games with the random player against the Alpha-Beta AI player at a depth
 of 10 plies (d = 10, as AIMA counts it, so 11 moves ahead) in under 20 minutes
