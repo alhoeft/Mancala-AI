@@ -105,4 +105,5 @@ Your AI player must win at least 95% of the 100 games
 Explain what you did to make your code fast (for example, how you represent
 the board, how you copy states, how you order moves)
 Be prepared to run a shorter version of this test (for example, 10 games)
-during your interview ✅
+during your interview✅
+Alpha-beta can only prune a branch once it has already found a good move to compare against, so the order the moves get checked in matters a lot. Originally, we had just a set of legal_moves. To speed up our code, we added ordered_moves which plays each move once first, then sorts them(moes that give an extra turn come first and after that the ones that put the most stones in the mover’s mancala). In mancala these are usually the best moves, so the AI finds a strong value early and alpha and beta tighten fast, which means more of the later branches get cut off with the break. It still gives the same answer as plain minimax since it only skips branches that couldn’t change the result, it just gets there way faster (about 10x at 10 plies).
